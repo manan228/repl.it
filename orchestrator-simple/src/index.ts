@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 const kubeconfig = new KubeConfig();
-const configFilePath = "../config.yaml";
+const configFilePath = path.join(__dirname, "../config.yaml");
 kubeconfig.loadFromFile(configFilePath);
 const coreV1Api = kubeconfig.makeApiClient(CoreV1Api);
 const appsV1Api = kubeconfig.makeApiClient(AppsV1Api);
@@ -27,19 +27,19 @@ const readAndParseKubeYaml = (filePath: string, replId: string): Array<any> => {
   const fileContent = fs.readFileSync(filePath, "utf8");
   const docs = yaml.parseAllDocuments(fileContent).map((doc) => {
     let docString = doc.toString();
-    
+
     const regex = new RegExp(`service_name`, "g");
     const regex_aws_accessKey = new RegExp(`ACCESS_KEY_AWS`, "g");
     const regex_aws_secret_accessKey = new RegExp(`AWS_ACCESS_KEY_SECRET`, "g");
-    
+
     docString = docString.replace(regex, replId);
     docString = docString.replace(
       regex_aws_accessKey,
-      (process.env.AWS_ACCESS_KEY_ID)?.toString() ?? ""
+      process.env.AWS_ACCESS_KEY_ID?.toString() ?? ""
     );
     docString = docString.replace(
       regex_aws_secret_accessKey,
-      (process.env.AWS_SECRET_ACCESS_KEY)?.toString() ?? ""
+      process.env.AWS_SECRET_ACCESS_KEY?.toString() ?? ""
     );
 
     return yaml.parse(docString);
