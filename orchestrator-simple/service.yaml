@@ -74,6 +74,11 @@ metadata:
   name: service_name
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - service_name.socket.shahmanan.tech
+    - service_name.shahmanan.tech
+    secretName: my-tls-secret
   rules:
   - host: service_name.socket.shahmanan.tech
     http:
