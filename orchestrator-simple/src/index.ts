@@ -17,7 +17,8 @@ app.use(express.json());
 app.use(cors());
 
 const kubeconfig = new KubeConfig();
-kubeconfig.loadFromDefault();
+const configFilePath = "../config.yaml";
+kubeconfig.loadFromFile(configFilePath);
 const coreV1Api = kubeconfig.makeApiClient(CoreV1Api);
 const appsV1Api = kubeconfig.makeApiClient(AppsV1Api);
 const networkingV1Api = kubeconfig.makeApiClient(NetworkingV1Api);
