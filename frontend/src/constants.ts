@@ -6,7 +6,7 @@ export const ORCHESTRATOR_URL = `https://repl-it-orchestrator.onrender.com/start
 export const BASE_DOMAIN = `shahmanan.tech`;
 
 export const SOCKET_URL = {
-  part_one: `ws://`,
+  part_one: `wss://`,
   part_two: `.socket.${BASE_DOMAIN}`,
 };
 
