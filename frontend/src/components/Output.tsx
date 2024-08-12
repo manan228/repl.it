@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 export const Output = () => {
     const [searchParams] = useSearchParams();
     const replId = searchParams.get('replId') ?? '';
-    const INSTANCE_URI = `http://${replId}.shahmanan.tech`;
+    const INSTANCE_URI = `https://${replId}.shahmanan.tech`;
 
     return <div style={{height: "40vh", background: "white"}}>
         <iframe width={"100%"} height={"100%"} src={`${INSTANCE_URI}`} />
